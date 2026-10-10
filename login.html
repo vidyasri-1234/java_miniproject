@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Customer Login | Apex Parcel Express</title>
+  <meta name="description" content="Sign in to your Apex Parcel Express customer portal to manage shipments, view waybill history, schedule pickups, and download invoices.">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- Top Utility Bar -->
+  <div class="top-bar">
+    <div class="container">
+      <div class="top-bar-contact">
+        <span><strong>Dispatch Helpline:</strong> +1 (800) 555-APEX</span>
+        <span><strong>Hours:</strong> Mon–Sat: 07:00 – 21:00</span>
+      </div>
+      <ul class="top-bar-links">
+        <li><a href="parcel-info.html#calculator">Rate Estimator</a></li>
+        <li><a href="contact.html">Support &amp; Depots</a></li>
+        <li><a href="login.html">Customer Portal</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Main Site Navigation -->
+  <header class="site-header">
+    <div class="container">
+      <nav class="navbar" aria-label="Main Navigation">
+        <a href="index.html" class="brand-logo" title="Apex Parcel Express - Home">
+          <div class="brand-mark" aria-hidden="true">AP</div>
+          <div class="brand-text">
+            <span class="brand-name">APEX PARCEL EXPRESS</span>
+            <span class="brand-tagline">National &amp; Global Logistics</span>
+          </div>
+        </a>
+
+        <button type="button" class="nav-toggle" id="navToggleBtn" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="navContainer">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+
+        <div class="nav-container" id="navContainer">
+          <ul class="nav-menu">
+            <li><a href="index.html" class="nav-link">Home</a></li>
+            <li><a href="about.html" class="nav-link">About Us</a></li>
+            <li><a href="services.html" class="nav-link">Services</a></li>
+            <li><a href="parcel-info.html" class="nav-link">Parcel Information</a></li>
+            <li><a href="contact.html" class="nav-link">Contact</a></li>
+          </ul>
+          <div class="nav-actions">
+            <a href="login.html" class="btn btn-outline-dark active" style="color: var(--color-primary); background-color: var(--color-primary-light);">Customer Login</a>
+            <a href="parcel-info.html" class="btn btn-primary">Track Shipment</a>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Breadcrumb Navigation -->
+  <nav class="breadcrumb-nav" aria-label="Breadcrumb">
+    <div class="container">
+      <ul class="breadcrumbs">
+        <li><a href="index.html">Home</a></li>
+        <li>Customer Portal Login</li>
+      </ul>
+    </div>
+  </nav>
+
+  <main id="main-content" class="auth-wrapper">
+    <div class="container">
+      <div class="auth-card">
+        <div class="auth-card-header">
+          <div class="brand-mark" style="margin: 0 auto var(--space-3); width: 44px; height: 44px; font-size: 1.25rem;" aria-hidden="true">AP</div>
+          <h2>Customer Account Login</h2>
+          <p>Access your dispatch history, manifest orders, and billing invoices.</p>
+        </div>
+
+        <div class="auth-card-body">
+          <div id="loginStatusAlert" class="alert" style="display: none;" role="alert"></div>
+
+          <form id="customerLoginForm" novalidate>
+            <!-- Email / Phone Identifier Field -->
+            <div class="form-group">
+              <label for="customerIdentifier" class="form-label">
+                Email Address or Phone Number <span class="required">*</span>
+              </label>
+              <input 
+                type="text" 
+                id="customerIdentifier" 
+                name="customerIdentifier"
+                class="form-control" 
+                placeholder="e.g. shipper@company.com or +1 555-0192" 
+                required 
+                autocomplete="username"
+                spellcheck="false"
+              >
+              <div class="invalid-feedback">Please enter your registered email address or phone number.</div>
+              <div class="form-hint">Enter the email or phone number associated with your shipping account.</div>
+            </div>
+
+            <!-- Password Field with Show/Hide Toggle -->
+            <div class="form-group">
+              <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: var(--space-1);">
+                <label for="customerPassword" class="form-label" style="margin-bottom: 0;">
+                  Password <span class="required">*</span>
+                </label>
+                <a href="#forgot-password" data-modal-target="forgotPasswordModal" style="font-size: var(--font-size-xs);">Forgot password?</a>
+              </div>
+              <div class="password-wrapper">
+                <input 
+                  type="password" 
+                  id="customerPassword" 
+                  name="customerPassword"
+                  class="form-control" 
+                  placeholder="Enter your account password" 
+                  required 
+                  autocomplete="current-password"
+                  style="padding-right: 50px;"
+                >
+                <button type="button" id="passwordToggleBtn" class="password-toggle-btn" aria-label="Show password">Show</button>
+              </div>
+              <div class="invalid-feedback">Password must be at least 6 characters in length.</div>
+            </div>
+
+            <!-- Remember Me Checkbox -->
+            <div class="form-group" style="margin-top: var(--space-4); margin-bottom: var(--space-5);">
+              <label class="checkbox-label" for="rememberMe">
+                <input type="checkbox" id="rememberMe" name="rememberMe">
+                <span>Keep this session active on this trusted device</span>
+              </label>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-primary btn-block btn-lg">
+              Sign In to Account
+            </button>
+          </form>
+
+          <div style="margin-top: var(--space-6); padding-top: var(--space-4); border-top: 1px solid var(--color-border); font-size: var(--font-size-xs); color: var(--color-gray);">
+            <p style="margin-bottom: 4px;"><strong>Enterprise / Commercial Account?</strong></p>
+            <p style="margin: 0;">For high-volume linehaul contracts or EDI/API integration, contact your assigned account manager or our <a href="contact.html">Corporate Dispatch Desk</a>.</p>
+          </div>
+        </div>
+
+        <div class="auth-card-footer">
+          Don't have an Apex Customer Account? <a href="contact.html">Register for an account</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Forgot Password Modal Dialog -->
+  <div id="forgotPasswordModal" class="modal-overlay" aria-hidden="true" role="dialog" aria-labelledby="modalTitle">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 id="modalTitle">Reset Account Password</h3>
+        <button type="button" class="modal-close-btn" data-modal-close aria-label="Close dialog">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size: var(--font-size-sm); color: var(--color-gray); margin-bottom: var(--space-4);">
+          Enter the email address registered with your Apex Parcel Express account. A secure password reset link will be dispatched to your inbox.
+        </p>
+        <div class="form-group">
+          <label for="resetEmail" class="form-label">Registered Email <span class="required">*</span></label>
+          <input type="email" id="resetEmail" class="form-control" placeholder="name@company.com" required>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" data-modal-close>Cancel</button>
+        <button type="button" class="btn btn-primary" onclick="alert('Password reset instructions have been logged. When connected to a mail server, a verification token is sent.'); document.getElementById('forgotPasswordModal').classList.remove('is-active');">Send Reset Link</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Site Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h4>Apex Parcel Express</h4>
+          <p>
+            A premier provider of enterprise logistics, scheduled freight, and domestic parcel delivery services. Committed to punctuality, security, and supply chain integrity.
+          </p>
+          <p style="font-size: var(--font-size-xs); color: #888888;">
+            Registered Logistics Carrier #APX-US-892401-B
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Customer Services</h4>
+          <ul class="footer-links">
+            <li><a href="parcel-info.html">Track Parcel Status</a></li>
+            <li><a href="parcel-info.html#calculator">Shipping Rate Calculator</a></li>
+            <li><a href="services.html#guidelines">Packaging Standards</a></li>
+            <li><a href="parcel-info.html#prohibited">Prohibited Items Guide</a></li>
+            <li><a href="contact.html#faqs">Delivery Help &amp; FAQs</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul class="footer-links">
+            <li><a href="about.html">About Apex Logistics</a></li>
+            <li><a href="about.html#fleet">Fleet &amp; Network</a></li>
+            <li><a href="services.html">Delivery Services</a></li>
+            <li><a href="contact.html">Depot Locations</a></li>
+            <li><a href="login.html">Customer Portal Login</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Headquarters &amp; Support</h4>
+          <ul class="footer-contact-list">
+            <li>
+              <strong>Central Office</strong>
+              <span>450 Logistics Boulevard, Suite 1200<br>Chicago, IL 60607, United States</span>
+            </li>
+            <li>
+              <strong>Dispatch Helpline</strong>
+              <span>+1 (800) 555-2739 (Toll-Free)</span>
+            </li>
+            <li>
+              <strong>Customer Support</strong>
+              <span>dispatch@apexparcelexpress.com</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container">
+        <div>
+          &copy; 2026 Apex Parcel Express Logistics Ltd. All rights reserved.
+        </div>
+        <ul class="footer-legal-links">
+          <li><a href="contact.html">Terms of Carriage</a></li>
+          <li><a href="contact.html">Privacy Policy</a></li>
+          <li><a href="contact.html">Cargo Insurance Policy</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

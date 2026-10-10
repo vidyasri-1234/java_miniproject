@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact &amp; Depot Support | Apex Parcel Express</title>
+  <meta name="description" content="Reach the Apex Parcel Express dispatch desk, locate local sortation depots, schedule commercial pickups, or browse shipment FAQs.">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- Top Utility Bar -->
+  <div class="top-bar">
+    <div class="container">
+      <div class="top-bar-contact">
+        <span><strong>Dispatch Helpline:</strong> +1 (800) 555-APEX</span>
+        <span><strong>Hours:</strong> Mon–Sat: 07:00 – 21:00</span>
+      </div>
+      <ul class="top-bar-links">
+        <li><a href="parcel-info.html#calculator">Rate Estimator</a></li>
+        <li><a href="contact.html">Support &amp; Depots</a></li>
+        <li><a href="login.html">Customer Portal</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Main Site Navigation -->
+  <header class="site-header">
+    <div class="container">
+      <nav class="navbar" aria-label="Main Navigation">
+        <a href="index.html" class="brand-logo" title="Apex Parcel Express - Home">
+          <div class="brand-mark" aria-hidden="true">AP</div>
+          <div class="brand-text">
+            <span class="brand-name">APEX PARCEL EXPRESS</span>
+            <span class="brand-tagline">National &amp; Global Logistics</span>
+          </div>
+        </a>
+
+        <button type="button" class="nav-toggle" id="navToggleBtn" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="navContainer">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+
+        <div class="nav-container" id="navContainer">
+          <ul class="nav-menu">
+            <li><a href="index.html" class="nav-link">Home</a></li>
+            <li><a href="about.html" class="nav-link">About Us</a></li>
+            <li><a href="services.html" class="nav-link">Services</a></li>
+            <li><a href="parcel-info.html" class="nav-link">Parcel Information</a></li>
+            <li><a href="contact.html" class="nav-link active">Contact</a></li>
+          </ul>
+          <div class="nav-actions">
+            <a href="login.html" class="btn btn-outline-dark">Customer Login</a>
+            <a href="parcel-info.html" class="btn btn-primary">Track Shipment</a>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Breadcrumb Navigation -->
+  <nav class="breadcrumb-nav" aria-label="Breadcrumb">
+    <div class="container">
+      <ul class="breadcrumbs">
+        <li><a href="index.html">Home</a></li>
+        <li>Contact &amp; Support</li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Page Header Banner -->
+  <section class="page-banner" aria-labelledby="contact-title">
+    <div class="container">
+      <h1 id="contact-title">Contact &amp; Depot Support</h1>
+      <p>Our logistics and dispatch teams are available to assist with shipment inquiries, pickup coordination, and depot collections.</p>
+    </div>
+  </section>
+
+  <main id="main-content">
+    <!-- Contact Details & Inquiry Form -->
+    <section class="section">
+      <div class="container">
+        <div class="grid grid-2" style="gap: var(--space-10); align-items: flex-start;">
+          <!-- Inquiry Form -->
+          <div class="card" style="border-top: 4px solid var(--color-primary);">
+            <h2 style="font-size: var(--font-size-xl); margin-bottom: var(--space-2);">Send Dispatch Inquiry</h2>
+            <p style="font-size: var(--font-size-sm); color: var(--color-gray); margin-bottom: var(--space-5);">
+              Complete the form below to reach our customer support or request a commercial service quote.
+            </p>
+
+            <div id="contactStatusAlert" class="alert" style="display: none;" role="alert"></div>
+
+            <form id="contactInquiryForm" novalidate>
+              <div class="grid grid-2" style="gap: var(--space-4);">
+                <div class="form-group">
+                  <label for="contactName" class="form-label">Full Name <span class="required">*</span></label>
+                  <input type="text" id="contactName" class="form-control" placeholder="e.g. Eleanor Vance" required>
+                  <div class="invalid-feedback">Full Name is required.</div>
+                </div>
+
+                <div class="form-group">
+                  <label for="contactEmail" class="form-label">Email Address <span class="required">*</span></label>
+                  <input type="email" id="contactEmail" class="form-control" placeholder="e.g. eleanor@example.com" required>
+                  <div class="invalid-feedback">A valid email address is required.</div>
+                </div>
+              </div>
+
+              <div class="grid grid-2" style="gap: var(--space-4);">
+                <div class="form-group">
+                  <label for="contactPhone" class="form-label">Phone Number (Optional)</label>
+                  <input type="tel" id="contactPhone" class="form-control" placeholder="+1 (555) 012-3456">
+                </div>
+
+                <div class="form-group">
+                  <label for="contactSubject" class="form-label">Inquiry Subject <span class="required">*</span></label>
+                  <select id="contactSubject" class="form-control" required>
+                    <option value="">Select Topic...</option>
+                    <option value="tracking">Parcel Tracking &amp; Delivery Status</option>
+                    <option value="pickup">Schedule Business Pickup</option>
+                    <option value="commercial">Commercial Freight Account</option>
+                    <option value="claims">Damage or Lost Parcel Claim</option>
+                    <option value="billing">Invoicing &amp; Billing Query</option>
+                  </select>
+                  <div class="invalid-feedback">Please select an inquiry topic.</div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="contactWaybill" class="form-label">Waybill / Tracking ID (If applicable)</label>
+                <input type="text" id="contactWaybill" class="form-control" placeholder="e.g. APX-982341">
+              </div>
+
+              <div class="form-group">
+                <label for="contactMessage" class="form-label">Inquiry Details <span class="required">*</span></label>
+                <textarea id="contactMessage" class="form-control" rows="5" placeholder="Please describe your shipment inquiry in detail..." required></textarea>
+                <div class="invalid-feedback">Message must contain at least 15 characters describing your inquiry.</div>
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-block btn-lg" style="margin-top: var(--space-2);">Submit Customer Inquiry</button>
+            </form>
+          </div>
+
+          <!-- Direct Channels & Offices -->
+          <div>
+            <div class="card" style="margin-bottom: var(--space-6);">
+              <h3 style="font-size: var(--font-size-md); border-bottom: 2px solid var(--color-primary); padding-bottom: var(--space-2); margin-bottom: var(--space-4);">
+                Direct Support Channels
+              </h3>
+              <ul class="footer-contact-list" style="margin: 0;">
+                <li style="border-bottom: 1px solid var(--color-border); padding-bottom: var(--space-3); margin-bottom: var(--space-3);">
+                  <strong style="color: var(--color-primary);">Toll-Free Dispatch Helpline</strong>
+                  <span style="font-size: var(--font-size-md); font-weight: 700; color: var(--color-black);">+1 (800) 555-2739</span>
+                  <span style="font-size: var(--font-size-xs); color: var(--color-gray);">Monday – Saturday: 07:00 – 21:00 EST</span>
+                </li>
+
+                <li style="border-bottom: 1px solid var(--color-border); padding-bottom: var(--space-3); margin-bottom: var(--space-3);">
+                  <strong style="color: var(--color-primary);">Electronic Mail Support</strong>
+                  <span style="color: var(--color-black); font-weight: 600;">General Inquiries: info@apexparcelexpress.com</span>
+                  <span style="color: var(--color-black); font-weight: 600;">Claims Desk: claims@apexparcelexpress.com</span>
+                </li>
+
+                <li>
+                  <strong style="color: var(--color-primary);">Central Logistics Center</strong>
+                  <span style="color: var(--color-dark-gray);">450 Logistics Boulevard, Suite 1200<br>Chicago, IL 60607, United States</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="card" style="background-color: var(--color-light-gray);">
+              <h4 style="margin-bottom: var(--space-2);">Regional Depot Operating Hours</h4>
+              <p style="font-size: var(--font-size-sm); color: var(--color-gray); margin-bottom: var(--space-3);">
+                Customer parcel collection counters and automated drop boxes are accessible during the following standard hours:
+              </p>
+              <table class="parcel-details-table" style="margin-bottom: 0;">
+                <tbody>
+                  <tr>
+                    <td>Monday – Friday</td>
+                    <td>07:30 AM – 19:30 PM</td>
+                  </tr>
+                  <tr>
+                    <td>Saturday</td>
+                    <td>08:00 AM – 16:00 PM</td>
+                  </tr>
+                  <tr>
+                    <td>Sunday &amp; Holidays</td>
+                    <td>Drop Box Access Only</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Frequently Asked Questions (FAQ) Section -->
+    <section class="section section-alt" id="faqs">
+      <div class="container container-narrow">
+        <div class="section-header">
+          <span class="section-tag">Help Center</span>
+          <h2>Frequently Asked Questions</h2>
+          <p>Common questions regarding tracking updates, collection policies, and delivery rescheduling.</p>
+        </div>
+
+        <div class="grid" style="gap: var(--space-4);">
+          <div class="card">
+            <h4>How soon after booking does parcel tracking become active?</h4>
+            <p style="font-size: var(--font-size-sm); color: var(--color-dark-gray); margin: 0;">
+              Electronic waybill records appear in our system immediately upon generation. Checkpoint tracking scans activate as soon as the package is deposited at a depot or collected by our courier driver.
+            </p>
+          </div>
+
+          <div class="card">
+            <h4>What happens if I am not present during a home delivery attempt?</h4>
+            <p style="font-size: var(--font-size-sm); color: var(--color-dark-gray); margin: 0;">
+              Our driver leaves a digital missed-delivery calling card. We automatically reattempt delivery on the following business day, or you may elect to collect the item from your nearest regional depot.
+            </p>
+          </div>
+
+          <div class="card">
+            <h4>How do I file a claim for damaged or missing consignment?</h4>
+            <p style="font-size: var(--font-size-sm); color: var(--color-dark-gray); margin: 0;">
+              Claims must be submitted within 14 calendar days of the scheduled delivery date. Shippers must provide the original waybill code, photographic evidence of damage, and proof of declared commercial value.
+            </p>
+          </div>
+
+          <div class="card">
+            <h4>Are import customs duties and taxes included in international shipping?</h4>
+            <p style="font-size: var(--font-size-sm); color: var(--color-dark-gray); margin: 0;">
+              Standard rates cover transit freight and customs clearance brokerage. Destination customs duties and local value-added taxes (VAT) are assessed by destination country customs authorities unless prepaid via DDP agreement.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Main Site Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h4>Apex Parcel Express</h4>
+          <p>
+            A premier provider of enterprise logistics, scheduled freight, and domestic parcel delivery services. Committed to punctuality, security, and supply chain integrity.
+          </p>
+          <p style="font-size: var(--font-size-xs); color: #888888;">
+            Registered Logistics Carrier #APX-US-892401-B
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Customer Services</h4>
+          <ul class="footer-links">
+            <li><a href="parcel-info.html">Track Parcel Status</a></li>
+            <li><a href="parcel-info.html#calculator">Shipping Rate Calculator</a></li>
+            <li><a href="services.html#guidelines">Packaging Standards</a></li>
+            <li><a href="parcel-info.html#prohibited">Prohibited Items Guide</a></li>
+            <li><a href="contact.html#faqs">Delivery Help &amp; FAQs</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul class="footer-links">
+            <li><a href="about.html">About Apex Logistics</a></li>
+            <li><a href="about.html#fleet">Fleet &amp; Network</a></li>
+            <li><a href="services.html">Delivery Services</a></li>
+            <li><a href="contact.html">Depot Locations</a></li>
+            <li><a href="login.html">Customer Portal Login</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Headquarters &amp; Support</h4>
+          <ul class="footer-contact-list">
+            <li>
+              <strong>Central Office</strong>
+              <span>450 Logistics Boulevard, Suite 1200<br>Chicago, IL 60607, United States</span>
+            </li>
+            <li>
+              <strong>Dispatch Helpline</strong>
+              <span>+1 (800) 555-2739 (Toll-Free)</span>
+            </li>
+            <li>
+              <strong>Customer Support</strong>
+              <span>dispatch@apexparcelexpress.com</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container">
+        <div>
+          &copy; 2026 Apex Parcel Express Logistics Ltd. All rights reserved.
+        </div>
+        <ul class="footer-legal-links">
+          <li><a href="contact.html">Terms of Carriage</a></li>
+          <li><a href="contact.html">Privacy Policy</a></li>
+          <li><a href="contact.html">Cargo Insurance Policy</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

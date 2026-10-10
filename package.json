@@ -1,0 +1,20 @@
+{
+  "name": "apex-parcel-express",
+  "version": "1.0.0",
+  "description": "Customer-facing website for Apex Parcel Express",
+  "main": "index.html",
+  "scripts": {
+    "start": "live-server --port=3000 --open=index.html",
+    "serve": "live-server"
+  },
+  "keywords": [
+    "logistics",
+    "parcel-delivery",
+    "website"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  }
+}

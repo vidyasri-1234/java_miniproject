@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Parcel Information &amp; Tracking | Apex Parcel Express</title>
+  <meta name="description" content="Check real-time consignment status, calculate shipping rates, and review parcel transit guidelines with Apex Parcel Express.">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- Top Utility Bar -->
+  <div class="top-bar">
+    <div class="container">
+      <div class="top-bar-contact">
+        <span><strong>Dispatch Helpline:</strong> +1 (800) 555-APEX</span>
+        <span><strong>Hours:</strong> Mon–Sat: 07:00 – 21:00</span>
+      </div>
+      <ul class="top-bar-links">
+        <li><a href="parcel-info.html#calculator">Rate Estimator</a></li>
+        <li><a href="contact.html">Support &amp; Depots</a></li>
+        <li><a href="login.html">Customer Portal</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Main Site Navigation -->
+  <header class="site-header">
+    <div class="container">
+      <nav class="navbar" aria-label="Main Navigation">
+        <a href="index.html" class="brand-logo" title="Apex Parcel Express - Home">
+          <div class="brand-mark" aria-hidden="true">AP</div>
+          <div class="brand-text">
+            <span class="brand-name">APEX PARCEL EXPRESS</span>
+            <span class="brand-tagline">National &amp; Global Logistics</span>
+          </div>
+        </a>
+
+        <button type="button" class="nav-toggle" id="navToggleBtn" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="navContainer">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+
+        <div class="nav-container" id="navContainer">
+          <ul class="nav-menu">
+            <li><a href="index.html" class="nav-link">Home</a></li>
+            <li><a href="about.html" class="nav-link">About Us</a></li>
+            <li><a href="services.html" class="nav-link">Services</a></li>
+            <li><a href="parcel-info.html" class="nav-link active">Parcel Information</a></li>
+            <li><a href="contact.html" class="nav-link">Contact</a></li>
+          </ul>
+          <div class="nav-actions">
+            <a href="login.html" class="btn btn-outline-dark">Customer Login</a>
+            <a href="parcel-info.html" class="btn btn-primary">Track Shipment</a>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Breadcrumb Navigation -->
+  <nav class="breadcrumb-nav" aria-label="Breadcrumb">
+    <div class="container">
+      <ul class="breadcrumbs">
+        <li><a href="index.html">Home</a></li>
+        <li>Parcel Information &amp; Tracking</li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Page Header Banner -->
+  <section class="page-banner" aria-labelledby="parcel-title">
+    <div class="container">
+      <h1 id="parcel-title">Parcel Information &amp; Tracking</h1>
+      <p>Search consignment checkpoints, calculate domestic and international postage, and review carriage regulations.</p>
+    </div>
+  </section>
+
+  <main id="main-content">
+    <!-- Tracking Input Section -->
+    <section class="section" style="padding-bottom: var(--space-8);">
+      <div class="container container-narrow">
+        <div class="card" style="border-top: 4px solid var(--color-primary);">
+          <h2 style="font-size: var(--font-size-xl); margin-bottom: var(--space-2);">Consignment Waybill Lookup</h2>
+          <p style="font-size: var(--font-size-sm); color: var(--color-gray); margin-bottom: var(--space-5);">
+            Enter your unique 8 to 20 character Waybill or Tracking code to query current route checkpoints and delivery estimates.
+          </p>
+
+          <form class="parcel-tracking-form" novalidate>
+            <div class="form-group">
+              <label for="mainTrackingInput" class="form-label">Waybill / Tracking Number <span class="required">*</span></label>
+              <div class="track-bar">
+                <input type="text" id="mainTrackingInput" class="form-control tracking-input" placeholder="e.g. APX-982341" required autocomplete="off" spellcheck="false">
+                <button type="submit" class="btn btn-primary btn-lg">Search Parcel</button>
+              </div>
+              <div class="invalid-feedback tracking-feedback">Please enter a valid tracking number (e.g. APX-982341).</div>
+              <div class="form-hint" style="margin-top: var(--space-2);">
+                Standard format: <code>APX-XXXXXX</code> (Demo test codes: <code>APX-982341</code>, <code>APX-774102</code>, <code>EXP-401928</code>)
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <!-- Tracking Results Presentation Container (Shown when a valid query is run) -->
+        <div id="trackingResultsContainer" style="display: none; margin-top: var(--space-8);">
+          <div class="parcel-status-banner">
+            <div class="parcel-status-info">
+              <div style="font-size: var(--font-size-xs); font-weight: 700; color: var(--color-primary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 2px;">
+                Tracking Query: <span id="searchedTrackingNumber">APX-982341</span>
+              </div>
+              <h3>Status: In Transit (On Schedule)</h3>
+              <p>Estimated Delivery: Thursday, by 16:30 Local Time</p>
+            </div>
+            <div>
+              <span class="badge badge-warning" style="font-size: var(--font-size-sm); padding: 0.4rem 0.8rem;">In Transit</span>
+            </div>
+          </div>
+
+          <div class="card" style="margin-bottom: var(--space-6);">
+            <h3 style="font-size: var(--font-size-md); border-bottom: 1px solid var(--color-border); padding-bottom: var(--space-3); margin-bottom: var(--space-4);">
+              Consignment Specification &amp; Metadata
+            </h3>
+            <table class="parcel-details-table">
+              <tbody>
+                <tr>
+                  <td>Service Class</td>
+                  <td>Domestic Express Priority (Air &amp; Ground Linehaul)</td>
+                </tr>
+                <tr>
+                  <td>Origin Hub</td>
+                  <td>Chicago Logistics Hub #04, IL (60607)</td>
+                </tr>
+                <tr>
+                  <td>Destination Hub</td>
+                  <td>Atlanta Metro Sortation Depot #12, GA (30303)</td>
+                </tr>
+                <tr>
+                  <td>Package Weight</td>
+                  <td>3.45 kg (Physical) / 4.10 kg (Volumetric)</td>
+                </tr>
+                <tr>
+                  <td>Delivery Verification</td>
+                  <td>Direct Physical Signature Required</td>
+                </tr>
+                <tr>
+                  <td>Declared Value</td>
+                  <td>$450.00 USD (Insured under Apex Transit Guard)</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <h4 style="font-size: var(--font-size-base); margin-top: var(--space-6); margin-bottom: var(--space-3);">
+              Milestone Progress Timeline
+            </h4>
+            <div class="timeline">
+              <!-- Timeline Item 1 -->
+              <div class="timeline-item current">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                  <div class="timeline-header">
+                    <span class="timeline-title">Arrived at Regional Distribution Hub</span>
+                    <span class="timeline-time">Today, 06:14 AM</span>
+                  </div>
+                  <p class="timeline-location">Regional Sort Facility, Nashville Central Depot, TN</p>
+                  <p style="font-size: var(--font-size-xs); color: var(--color-gray); margin-top: 4px;">Automated optical scan: Processed and queued for morning southbound linehaul dispatch.</p>
+                </div>
+              </div>
+
+              <!-- Timeline Item 2 -->
+              <div class="timeline-item completed">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                  <div class="timeline-header">
+                    <span class="timeline-title">Departed Origin Facility</span>
+                    <span class="timeline-time">Yesterday, 22:45 PM</span>
+                  </div>
+                  <p class="timeline-location">Central Midwest Hub, Chicago, IL</p>
+                </div>
+              </div>
+
+              <!-- Timeline Item 3 -->
+              <div class="timeline-item completed">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                  <div class="timeline-header">
+                    <span class="timeline-title">Package Scanned at Origin Depot</span>
+                    <span class="timeline-time">Yesterday, 17:30 PM</span>
+                  </div>
+                  <p class="timeline-location">Depot Station #04, Chicago, IL</p>
+                </div>
+              </div>
+
+              <!-- Timeline Item 4 -->
+              <div class="timeline-item completed">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                  <div class="timeline-header">
+                    <span class="timeline-title">Shipping Label Created &amp; Manifest Received</span>
+                    <span class="timeline-time">Yesterday, 14:10 PM</span>
+                  </div>
+                  <p class="timeline-location">Customer Electronic Manifest Order</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tracking Not Found / General Notice (Shown when non-matching input is searched) -->
+        <div id="trackingNotFoundContainer" style="display: none; margin-top: var(--space-8);">
+          <div class="alert alert-warning">
+            <div>
+              <strong>Tracking Query Recorded:</strong> Number <code id="notFoundTrackingNumber"></code> was validated against dispatch syntax.
+              <p style="margin-top: var(--space-2); margin-bottom: 0;">
+                No active delivery record was returned for this specific identifier. If this waybill was created in the last 2 hours, please allow time for initial depot scan synchronization.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Shipping Rate Estimator Tool -->
+    <section class="section section-alt" id="calculator">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Rate Estimator</span>
+          <h2>Calculate Estimated Shipping Costs</h2>
+          <p>Get an immediate, transparent estimate based on package weight, origin, destination, and selected delivery speed.</p>
+        </div>
+
+        <div class="grid grid-2" style="align-items: flex-start;">
+          <div class="calculator-box">
+            <h3 style="font-size: var(--font-size-md); margin-bottom: var(--space-4); border-bottom: 1px solid var(--color-border); padding-bottom: var(--space-2);">
+              Shipment Parameters
+            </h3>
+            <form id="rateCalculatorForm" novalidate>
+              <div class="grid grid-2" style="gap: var(--space-4);">
+                <div class="form-group">
+                  <label for="calcOrigin" class="form-label">Origin Country <span class="required">*</span></label>
+                  <select id="calcOrigin" class="form-control" required>
+                    <option value="US">United States (Domestic)</option>
+                    <option value="CA">Canada</option>
+                    <option value="UK">United Kingdom</option>
+                    <option value="DE">Germany</option>
+                    <option value="AU">Australia</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="calcDestination" class="form-label">Destination Country <span class="required">*</span></label>
+                  <select id="calcDestination" class="form-control" required>
+                    <option value="US">United States (Domestic)</option>
+                    <option value="CA">Canada</option>
+                    <option value="UK">United Kingdom</option>
+                    <option value="DE">Germany</option>
+                    <option value="AU">Australia</option>
+                    <option value="JP">Japan</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="grid grid-2" style="gap: var(--space-4);">
+                <div class="form-group">
+                  <label for="calcWeight" class="form-label">Weight in Kilograms (kg) <span class="required">*</span></label>
+                  <input type="number" id="calcWeight" class="form-control" placeholder="e.g. 2.5" min="0.1" max="1000" step="0.1" value="1.0" required>
+                </div>
+
+                <div class="form-group">
+                  <label for="calcService" class="form-label">Service Level <span class="required">*</span></label>
+                  <select id="calcService" class="form-control" required>
+                    <option value="ground">Apex Standard Ground</option>
+                    <option value="express">Apex Express Priority</option>
+                    <option value="same-day">Apex Same-Day Direct</option>
+                  </select>
+                </div>
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-block" style="margin-top: var(--space-3);">Calculate Estimated Postage</button>
+            </form>
+          </div>
+
+          <!-- Rate Result Box -->
+          <div>
+            <div id="calcResultBox" class="calc-result-box">
+              <span class="badge badge-primary" style="margin-bottom: var(--space-2);">Estimated Quotation</span>
+              <div id="calcPriceDisplay" class="calc-result-price">$16.50 USD</div>
+              <div id="calcTimeDisplay" style="font-weight: 700; color: var(--color-black); margin-bottom: var(--space-2);">Estimated Transit Time: 2 - 4 Business Days</div>
+              <p id="calcBreakdownDisplay" style="font-size: var(--font-size-sm); color: var(--color-gray); margin-bottom: var(--space-4);">
+                Based on 1.0 kg via GROUND service (Domestic).
+              </p>
+              <div style="font-size: var(--font-size-xs); color: var(--color-gray-light); border-top: 1px solid var(--color-border); padding-top: var(--space-2);">
+                *Final billing is determined upon official depot laser dimensioning and scales check.
+              </div>
+            </div>
+
+            <div class="card" style="margin-top: var(--space-4);">
+              <h4 style="font-size: var(--font-size-sm); text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-primary); margin-bottom: var(--space-2);">Billing &amp; Surcharge Notice</h4>
+              <p style="font-size: var(--font-size-xs); color: var(--color-gray); margin-bottom: 0;">
+                Calculations reflect baseline carriage fees and standard liability. Oversized dimensions exceeding 150 cm length or rural delivery addresses may incur standard logistics adjustments.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Prohibited & Restricted Commodities Guide -->
+    <section class="section" id="prohibited">
+      <div class="container">
+        <div class="section-header text-left">
+          <span class="section-tag">Safety Regulations</span>
+          <h2>Prohibited &amp; Restricted Items</h2>
+          <p>In compliance with international aviation protocols and national transport laws, the following materials cannot be accepted for standard carriage.</p>
+        </div>
+
+        <div class="grid grid-3">
+          <div class="card" style="border-left: 3px solid var(--color-danger);">
+            <h4 style="color: var(--color-danger);">Hazardous Materials (HAZMAT)</h4>
+            <ul style="font-size: var(--font-size-sm); padding-left: var(--space-4); margin: 0;">
+              <li>Flammable liquids, gases, and paints</li>
+              <li>Explosives, fireworks, and munitions</li>
+              <li>Corrosive acids, bleaches, and oxidizers</li>
+              <li>Uncertified lithium-ion battery packs</li>
+            </ul>
+          </div>
+
+          <div class="card" style="border-left: 3px solid var(--color-danger);">
+            <h4 style="color: var(--color-danger);">Restricted Goods</h4>
+            <ul style="font-size: var(--font-size-sm); padding-left: var(--space-4); margin: 0;">
+              <li>Perishable fresh produce without refrigeration</li>
+              <li>Live animals or biological specimens</li>
+              <li>Firearms, weapon replicas, and blades</li>
+              <li>Controlled pharmaceuticals without license</li>
+            </ul>
+          </div>
+
+          <div class="card" style="border-left: 3px solid var(--color-danger);">
+            <h4 style="color: var(--color-danger);">High-Value Monetary Items</h4>
+            <ul style="font-size: var(--font-size-sm); padding-left: var(--space-4); margin: 0;">
+              <li>Physical currency, coins, and bullion</li>
+              <li>Unregistered bearer bonds and negotiable notes</li>
+              <li>Loose precious gemstones and unmounted bullion</li>
+              <li>Lottery tickets and gambling tokens</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Parcel Collection & Recipient ID Requirements -->
+    <section class="section section-alt">
+      <div class="container container-narrow">
+        <div class="card">
+          <h3 style="font-size: var(--font-size-lg); margin-bottom: var(--space-3); border-bottom: 2px solid var(--color-primary); padding-bottom: var(--space-2);">
+            Parcel Collection &amp; Identity Verification Rules
+          </h3>
+          <p style="font-size: var(--font-size-sm); color: var(--color-dark-gray);">
+            When collecting a package from an Apex Logistics Depot Station or accepting a signature-mandated delivery, recipients must satisfy the following criteria:
+          </p>
+          <ul style="font-size: var(--font-size-sm); padding-left: var(--space-5); margin-bottom: var(--space-4);">
+            <li><strong>Government-Issued Photo ID:</strong> Valid Passport, Driver’s License, or National Identity Card matching the addressee name.</li>
+            <li><strong>Digital Waybill Notification:</strong> Presentation of the official SMS or email dispatch code containing the consignment number.</li>
+            <li><strong>Third-Party Collection:</strong> If collecting on behalf of another individual, provide written authorization accompanied by a photocopy of the addressee's official ID.</li>
+          </ul>
+          <div style="font-size: var(--font-size-xs); color: var(--color-gray);">
+            Parcels held at local depots will remain available for collection for 14 calendar days before return-to-sender procedures commence.
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Main Site Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h4>Apex Parcel Express</h4>
+          <p>
+            A premier provider of enterprise logistics, scheduled freight, and domestic parcel delivery services. Committed to punctuality, security, and supply chain integrity.
+          </p>
+          <p style="font-size: var(--font-size-xs); color: #888888;">
+            Registered Logistics Carrier #APX-US-892401-B
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Customer Services</h4>
+          <ul class="footer-links">
+            <li><a href="parcel-info.html">Track Parcel Status</a></li>
+            <li><a href="parcel-info.html#calculator">Shipping Rate Calculator</a></li>
+            <li><a href="services.html#guidelines">Packaging Standards</a></li>
+            <li><a href="parcel-info.html#prohibited">Prohibited Items Guide</a></li>
+            <li><a href="contact.html#faqs">Delivery Help &amp; FAQs</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul class="footer-links">
+            <li><a href="about.html">About Apex Logistics</a></li>
+            <li><a href="about.html#fleet">Fleet &amp; Network</a></li>
+            <li><a href="services.html">Delivery Services</a></li>
+            <li><a href="contact.html">Depot Locations</a></li>
+            <li><a href="login.html">Customer Portal Login</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Headquarters &amp; Support</h4>
+          <ul class="footer-contact-list">
+            <li>
+              <strong>Central Office</strong>
+              <span>450 Logistics Boulevard, Suite 1200<br>Chicago, IL 60607, United States</span>
+            </li>
+            <li>
+              <strong>Dispatch Helpline</strong>
+              <span>+1 (800) 555-2739 (Toll-Free)</span>
+            </li>
+            <li>
+              <strong>Customer Support</strong>
+              <span>dispatch@apexparcelexpress.com</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container">
+        <div>
+          &copy; 2026 Apex Parcel Express Logistics Ltd. All rights reserved.
+        </div>
+        <ul class="footer-legal-links">
+          <li><a href="contact.html">Terms of Carriage</a></li>
+          <li><a href="contact.html">Privacy Policy</a></li>
+          <li><a href="contact.html">Cargo Insurance Policy</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
