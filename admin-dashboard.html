@@ -1,0 +1,97 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Samriddhi | Admin Dashboard</title>
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+  <main class="dashboard">
+    <header class="dashboard-header">
+      <div>
+        <h1>Samriddhi's Admin Dashboard</h1>
+        <p>Apex Parcel Express | Parcel Management</p>
+      </div>
+      <button type="button" onclick="logout()">Logout</button>
+    </header>
+
+    <section class="stats">
+      <div class="stat-card">
+        <h3>Total Parcels</h3>
+        <p id="totalParcels">0</p>
+      </div>
+      <div class="stat-card">
+        <h3>In Transit</h3>
+        <p id="inTransit">0</p>
+      </div>
+      <div class="stat-card">
+        <h3>Delivered</h3>
+        <p id="delivered">0</p>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2 id="formTitle">Add New Parcel</h2>
+      <form id="parcelForm">
+        <input type="hidden" id="editId">
+
+        <label for="trackingId">Tracking ID</label>
+        <input id="trackingId" required maxlength="20">
+
+        <label for="customerName">Customer Name</label>
+        <input id="customerName" required>
+
+        <label for="destination">Destination</label>
+        <input id="destination" required>
+
+        <label for="location">Current Location</label>
+        <input id="location" required>
+
+        <label for="status">Parcel Status</label>
+        <select id="status">
+          <option>Booked</option>
+          <option>In Transit</option>
+          <option>Out for Delivery</option>
+          <option>Delivered</option>
+          <option>Delayed</option>
+        </select>
+
+        <button type="submit">Save Parcel</button>
+        <button type="button" id="cancelEdit" hidden>Cancel Edit</button>
+      </form>
+      <p id="message" role="status"></p>
+    </section>
+
+    <section class="panel">
+      <h2>Search Parcels</h2>
+      <input id="searchInput" placeholder="Search tracking ID, customer or status">
+      <button type="button" id="searchButton">Search</button>
+      <button type="button" id="showAllButton">Show All</button>
+    </section>
+
+    <section class="panel">
+      <h2>All Parcels</h2>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Tracking ID</th>
+              <th>Customer</th>
+              <th>Destination</th>
+              <th>Location</th>
+              <th>Status</th>
+              <th>History</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="parcelTable"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/admin.js"></script>
+</body>
+</html>
