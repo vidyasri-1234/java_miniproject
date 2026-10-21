@@ -1,7 +1,7 @@
 /**
  * Apex Parcel Express - Main Client JavaScript
  * Handles navigation, accessible form validation, password visibility toggle,
- * rate estimation, and modal dialogs.
+ * rate estimation, live parcel tracking (via /api/track), and modal dialogs.
  */
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -126,7 +126,7 @@ document.addEventListener('DOMContentLoaded', function () {
       if (!input) return;
 
       const rawVal = input.value.trim();
-      // Tracking pattern: APX-XXXXXXX or 8 to 14 alphanumeric characters
+      // Tracking pattern: 8 to 20 alphanumeric characters / hyphens (e.g. APX-982341)
       const trackingPattern = /^[A-Za-z0-9-]{8,20}$/;
 
       if (!rawVal) {
@@ -179,33 +179,122 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
+  // Monotonic counter so a slow, older response can't overwrite a newer one
+  let trackingRequestSeq = 0;
+
+  function setText(el, text) {
+    if (el) el.textContent = (text === null || text === undefined) ? '' : String(text);
+  }
+
+  function showNotFound(trackingNumber, resultsContainer, notFoundContainer) {
+    resultsContainer.style.display = 'none';
+    notFoundContainer.style.display = 'block';
+    setText(document.getElementById('notFoundTrackingNumber'), trackingNumber);
+    notFoundContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function buildTimelineItem(event, index) {
+    const item = document.createElement('div');
+    item.className = 'timeline-item ' + (index === 0 ? 'current' : 'completed');
+
+    const dot = document.createElement('div');
+    dot.className = 'timeline-dot';
+
+    const content = document.createElement('div');
+    content.className = 'timeline-content';
+
+    const header = document.createElement('div');
+    header.className = 'timeline-header';
+
+    const title = document.createElement('span');
+    title.className = 'timeline-title';
+    setText(title, event.status);
+
+    const time = document.createElement('span');
+    time.className = 'timeline-time';
+    setText(time, event.updatedAt || '');
+
+    header.appendChild(title);
+    header.appendChild(time);
+
+    const location = document.createElement('p');
+    location.className = 'timeline-location';
+    setText(location, event.location);
+
+    const remarks = document.createElement('p');
+    remarks.style.fontSize = 'var(--font-size-xs)';
+    remarks.style.color = 'var(--color-gray)';
+    remarks.style.marginTop = '4px';
+    setText(remarks, event.remarks || '');
+
+    content.appendChild(header);
+    content.appendChild(location);
+    content.appendChild(remarks);
+    item.appendChild(dot);
+    item.appendChild(content);
+    return item;
+  }
+
   function displayTrackingQuery(trackingNumber, resultsContainer, notFoundContainer) {
-    const queryDisplay = document.getElementById('searchedTrackingNumber');
-    if (queryDisplay) {
-      queryDisplay.textContent = trackingNumber.toUpperCase();
-    }
+    if (!resultsContainer || !notFoundContainer) return;
 
-    // Standard demo tracking numbers for real verification demonstration
-    const sampleNumbers = ['APX-982341', 'APX-774102', 'EXP-401928'];
-    const isSample = sampleNumbers.some(function (num) {
-      return num.toLowerCase() === trackingNumber.toLowerCase();
-    });
+    const requestId = ++trackingRequestSeq;
 
-    if (resultsContainer && notFoundContainer) {
-      if (isSample || trackingNumber.toUpperCase().startsWith('APX-')) {
-        resultsContainer.style.display = 'block';
-        notFoundContainer.style.display = 'none';
-        resultsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      } else {
-        resultsContainer.style.display = 'none';
-        notFoundContainer.style.display = 'block';
-        const notFoundText = document.getElementById('notFoundTrackingNumber');
-        if (notFoundText) {
-          notFoundText.textContent = trackingNumber;
+    // Fetch real-time parcel data from the Java backend API
+    fetch('/api/track?id=' + encodeURIComponent(trackingNumber))
+      .then(function (res) {
+        if (res.status === 404) return { found: false };
+        if (!res.ok) throw new Error('Tracking API responded with HTTP ' + res.status);
+        return res.json();
+      })
+      .then(function (data) {
+        if (requestId !== trackingRequestSeq) return; // superseded by a newer lookup
+
+        if (!data || !data.found) {
+          showNotFound(trackingNumber, resultsContainer, notFoundContainer);
+          return;
         }
-        notFoundContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    }
+
+        notFoundContainer.style.display = 'none';
+        resultsContainer.style.display = 'block';
+
+        // Set Waybill ID & Status
+        setText(document.getElementById('searchedTrackingNumber'), data.trackingId);
+        setText(resultsContainer.querySelector('.parcel-status-info h3'), 'Status: ' + data.currentStatus);
+        setText(
+          resultsContainer.querySelector('.parcel-status-info p'),
+          'Expected Delivery Date: ' + (data.expectedDeliveryDate || 'N/A')
+        );
+        setText(resultsContainer.querySelector('.badge'), data.currentStatus);
+
+        // Populate Consignment Details Table
+        const tableRows = resultsContainer.querySelectorAll('.parcel-details-table tbody tr');
+        if (tableRows.length >= 6) {
+          const cell = function (i) { return tableRows[i].children[1]; };
+          setText(cell(0), data.currentStatus + ' (' + data.currentLocation + ')');
+          setText(cell(1), data.origin);
+          setText(cell(2), data.destination);
+          setText(cell(3), data.weightKg + ' kg');
+          setText(cell(4), 'Sender: ' + data.senderName + ' | Receiver: ' + data.receiverName);
+          setText(cell(5), 'Verified Supabase Record');
+        }
+
+        // Populate Timeline (built via DOM APIs: no HTML injection from API data)
+        const timeline = resultsContainer.querySelector('.timeline');
+        if (timeline && Array.isArray(data.history)) {
+          timeline.innerHTML = '';
+          data.history.forEach(function (event, index) {
+            timeline.appendChild(buildTimelineItem(event, index));
+          });
+        }
+
+        resultsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      })
+      .catch(function (err) {
+        console.error('Error fetching parcel tracking record:', err);
+        if (requestId !== trackingRequestSeq) return;
+        showNotFound(trackingNumber, resultsContainer, notFoundContainer);
+      });
   }
 
   // --------------------------------------------------------------------------
@@ -215,7 +304,7 @@ document.addEventListener('DOMContentLoaded', function () {
   if (rateCalculatorForm) {
     rateCalculatorForm.addEventListener('submit', function (e) {
       e.preventDefault();
-      
+
       const originCountry = document.getElementById('calcOrigin').value;
       const destCountry = document.getElementById('calcDestination').value;
       const weight = parseFloat(document.getElementById('calcWeight').value) || 0;

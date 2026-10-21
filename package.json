@@ -2,10 +2,10 @@
   "name": "apex-parcel-express",
   "version": "1.0.0",
   "description": "Customer-facing website for Apex Parcel Express",
-  "main": "index.html",
+  "main": "server.js",
   "scripts": {
-    "start": "live-server --port=3000 --open=index.html",
-    "serve": "live-server"
+    "start": "node server.js",
+    "serve": "node server.js"
   },
   "keywords": [
     "logistics",
@@ -16,5 +16,10 @@
   "license": "ISC",
   "devDependencies": {
     "live-server": "^1.2.2"
+  },
+  "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^5.3.0",
+    "pg": "^8.23.1"
   }
 }
