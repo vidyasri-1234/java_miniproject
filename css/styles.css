@@ -944,6 +944,33 @@ tr:hover td {
   }
 }
 
+.btn-demo-code {
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  color: #8B1E2D;
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-xs);
+  padding: 3px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 700;
+  transition: all 0.2s ease;
+  display: inline-block;
+  margin: 2px 3px;
+  vertical-align: middle;
+}
+.btn-demo-code:hover {
+  background: #8B1E2D;
+  color: #ffffff;
+  border-color: #8B1E2D;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(139, 30, 45, 0.25);
+}
+
+@keyframes trackSpin {
+  to { transform: rotate(360deg); }
+}
+
 .trust-bar {
   background-color: var(--color-white);
   border-bottom: 1px solid var(--color-border);

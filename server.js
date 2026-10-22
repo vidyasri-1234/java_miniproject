@@ -34,6 +34,8 @@ app.get('/api/track', async (req, res) => {
     return res.status(400).json({ error: 'No tracking ID provided.' });
   }
 
+  console.log(`[API /api/track] Querying tracking ID: "${trackingId}"`);
+
   try {
     const parcelResult = await pool.query(
       'SELECT * FROM parcels WHERE LOWER(tracking_id) = LOWER($1)',

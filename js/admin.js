@@ -1,4 +1,11 @@
 // Admin JavaScript for Apex Parcel Express
+function getApiBaseUrl() {
+  if (window.location.protocol.startsWith('http') && (window.location.port === '8080' || window.location.port === '')) {
+    return '';
+  }
+  return 'http://localhost:8080';
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   // Check if on login page
   const loginForm = document.getElementById('adminLoginForm');
@@ -9,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const passwordInput = document.getElementById('password');
 
       try {
-        const res = await fetch('/api/admin/login', {
+        const res = await fetch(getApiBaseUrl() + '/api/admin/login', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -56,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const messageEl = document.getElementById('message');
         try {
-          const res = await fetch('/api/admin/parcels', {
+          const res = await fetch(getApiBaseUrl() + '/api/admin/parcels', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ trackingId, customerName, destination, location, status })
@@ -123,7 +130,7 @@ let allParcelsCache = [];
 
 async function loadParcels() {
   try {
-    const res = await fetch('/api/admin/parcels');
+    const res = await fetch(getApiBaseUrl() + '/api/admin/parcels');
     const data = await res.json();
     if (data.success && Array.isArray(data.parcels)) {
       allParcelsCache = data.parcels;
@@ -211,7 +218,7 @@ window.deleteParcel = async function(trackingId) {
   if (!confirm(`Are you sure you want to delete parcel ${trackingId}?`)) return;
 
   try {
-    const res = await fetch(`/api/admin/parcels/${encodeURIComponent(trackingId)}`, { method: 'DELETE' });
+    const res = await fetch(`${getApiBaseUrl()}/api/admin/parcels/${encodeURIComponent(trackingId)}`, { method: 'DELETE' });
     const data = await res.json();
     if (data.success) {
       loadParcels();
