@@ -1,21 +1,24 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Samriddhi | Admin Dashboard</title>
   <link rel="stylesheet" href="css/admin.css">
 </head>
+
 <body>
   <main class="dashboard">
     <header class="dashboard-header">
       <div>
-        <h1>Samriddhi's Admin Dashboard</h1>
+        <h1>Admin Dashboard</h1>
         <p>Apex Parcel Express | Parcel Management</p>
       </div>
       <div style="display: flex; gap: 10px; align-items: center;">
-        <a href="index.html" style="background: #f1f5f9; border: 1px solid var(--border); color: #334155; padding: 8px 16px; border-radius: 6px; font-weight: 600; text-decoration: none;">&larr; Back to Home</a>
+        <a href="index.html"
+          style="background: #f1f5f9; border: 1px solid var(--border); color: #334155; padding: 8px 16px; border-radius: 6px; font-weight: 600; text-decoration: none;">&larr;
+          Back to Home</a>
         <button type="button" onclick="logout()">Logout</button>
       </div>
     </header>
@@ -35,43 +38,97 @@
       </div>
     </section>
 
-    <section class="panel">
-      <h2 id="formTitle">Add New Parcel</h2>
+    <section class="panel parcel-entry-panel">
+      <div class="panel-header">
+        <div>
+          <h2 id="formTitle">Add New Parcel / Shipment</h2>
+          <p class="panel-subtitle">Register consignment details to generate a live waybill in the Supabase tracking database.</p>
+        </div>
+        <span class="badge badge-info" style="font-size: 12px; font-weight: 700; background: #e0f2fe; color: #0369a1; padding: 6px 14px; border-radius: 20px;">
+          📦 Dispatch Registry
+        </span>
+      </div>
+
       <form id="parcelForm">
         <input type="hidden" id="editId">
 
-        <label for="trackingId">Tracking ID</label>
-        <input id="trackingId" required maxlength="20" placeholder="e.g. APX-982341">
+        <div class="form-grid">
+          <!-- Field 1: Tracking ID -->
+          <div class="form-group">
+            <label for="trackingId">
+              Tracking ID / Waybill Code <span class="required" style="color: #d40511;">*</span>
+            </label>
+            <input id="trackingId" required maxlength="20" placeholder="e.g. APX-982341 or DHL100" autocomplete="off" spellcheck="false">
+            <span class="input-hint">Unique 8–20 character alphanumeric consignment code.</span>
+          </div>
 
-        <label for="customerName">Customer Name</label>
-        <input id="customerName" required placeholder="e.g. Vikram Malhotra">
+          <!-- Field 2: Customer Name -->
+          <div class="form-group">
+            <label for="customerName">
+              Customer / Recipient Name <span class="required" style="color: #d40511;">*</span>
+            </label>
+            <input id="customerName" required placeholder="e.g. Vikram Malhotra or Pooja Roy">
+            <span class="input-hint">Full name of receiving consignee or client organization.</span>
+          </div>
 
-        <label for="destination">Destination</label>
-        <input id="destination" required placeholder="e.g. Bengaluru, Karnataka">
+          <!-- Field 3: Current Location -->
+          <div class="form-group">
+            <label for="location">
+              Current Location / Intake Hub <span class="required" style="color: #d40511;">*</span>
+            </label>
+            <input id="location" required placeholder="e.g. Mumbai Logistics Hub #04, Maharashtra">
+            <span class="input-hint">Intake depot or current sorting station location.</span>
+          </div>
 
-        <label for="location">Current Location</label>
-        <input id="location" required placeholder="e.g. Mumbai Logistics Hub, Maharashtra">
+          <!-- Field 4: Destination -->
+          <div class="form-group">
+            <label for="destination">
+              Destination City / Terminal <span class="required" style="color: #d40511;">*</span>
+            </label>
+            <input id="destination" required placeholder="e.g. Bengaluru Metro Sortation Depot, Karnataka">
+            <span class="input-hint">Target final delivery depot or distribution center.</span>
+          </div>
 
-        <label for="status">Parcel Status</label>
-        <select id="status">
-          <option>Booked</option>
-          <option>In Transit</option>
-          <option>Out for Delivery</option>
-          <option>Delivered</option>
-          <option>Delayed</option>
-        </select>
+          <!-- Field 5: Status -->
+          <div class="form-group form-group-full">
+            <label for="status">
+              Consignment Status <span class="required" style="color: #d40511;">*</span>
+            </label>
+            <select id="status">
+              <option value="Booked">Booked (Intake Manifest Created)</option>
+              <option value="In Transit">In Transit (Linehaul Dispatch Active)</option>
+              <option value="Out for Delivery">Out for Delivery (Courier Assigned)</option>
+              <option value="Delivered">Delivered (Handover Verified)</option>
+              <option value="Delayed">Delayed (Exception Hold)</option>
+            </select>
+            <span class="input-hint">Live milestone status shown on the public parcel tracking portal.</span>
+          </div>
+        </div>
 
-        <button type="submit">Save Parcel</button>
-        <button type="button" id="cancelEdit" hidden>Cancel Edit</button>
+        <div class="form-actions">
+          <button type="submit" class="btn-submit" id="saveParcelBtn">
+            <span>💾 Save Parcel</span>
+          </button>
+          <button type="button" id="cancelEdit" class="btn-cancel" hidden>
+            <span>✕ Cancel Edit</span>
+          </button>
+        </div>
       </form>
-      <p id="message" role="status"></p>
+      <div id="message" role="status" class="form-message"></div>
     </section>
 
     <section class="panel">
-      <h2>Search Parcels</h2>
-      <input id="searchInput" placeholder="Search tracking ID, customer, Indian hub or status">
-      <button type="button" id="searchButton">Search</button>
-      <button type="button" id="showAllButton">Show All</button>
+      <div class="panel-header">
+        <div>
+          <h2>Search Parcels</h2>
+          <p class="panel-subtitle">Filter registered consignments by tracking number, recipient, destination, or status.</p>
+        </div>
+      </div>
+      <div class="search-bar">
+        <input id="searchInput" placeholder="Search tracking ID, customer, Indian hub or status">
+        <button type="button" id="searchButton">Search</button>
+        <button type="button" id="showAllButton">Show All</button>
+      </div>
     </section>
 
     <section class="panel">
@@ -97,4 +154,5 @@
 
   <script src="js/admin.js"></script>
 </body>
+
 </html>
