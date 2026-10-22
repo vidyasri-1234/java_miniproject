@@ -13,13 +13,14 @@
   <div class="top-bar">
     <div class="container">
       <div class="top-bar-contact">
-        <span><strong>Dispatch Helpline:</strong> +1 (800) 555-APEX</span>
+        <span><strong>Dispatch Helpline:</strong> 1800 266 2739 (Toll-Free)</span>
         <span><strong>Hours:</strong> Mon–Sat: 07:00 – 21:00</span>
       </div>
       <ul class="top-bar-links">
         <li><a href="parcel-info.html#calculator">Rate Estimator</a></li>
         <li><a href="contact.html">Support &amp; Depots</a></li>
         <li><a href="login.html">Customer Portal</a></li>
+        <li><a href="admin-login.html" style="color: #ffd700; font-weight: 700;">🔐 Admin Login</a></li>
       </ul>
     </div>
   </div>
@@ -51,9 +52,10 @@
             <li><a href="services.html" class="nav-link">Services</a></li>
             <li><a href="parcel-info.html" class="nav-link active">Parcel Information</a></li>
             <li><a href="contact.html" class="nav-link">Contact</a></li>
+            <li><a href="admin-login.html" class="nav-link" style="color: #8B1E2D; font-weight: 700;">Admin Login</a></li>
           </ul>
           <div class="nav-actions">
-            <a href="admin-login.html" class="btn btn-outline-dark" style="background: #2a2a2a; color: #fff; border-color: #444;">Admin Portal</a>
+            <a href="admin-login.html" class="btn btn-outline-dark" style="background: #8B1E2D; color: #fff; border-color: #8B1E2D; font-weight: 700;">Admin Login</a>
             <a href="login.html" class="btn btn-outline-dark">Customer Login</a>
             <a href="parcel-info.html" class="btn btn-primary">Track Shipment</a>
           </div>
@@ -132,11 +134,11 @@
                 </tr>
                 <tr>
                   <td>Origin Hub</td>
-                  <td>Chicago Logistics Hub #04, IL (60607)</td>
+                  <td>Mumbai Logistics Hub #04, Maharashtra (400001)</td>
                 </tr>
                 <tr>
                   <td>Destination Hub</td>
-                  <td>Atlanta Metro Sortation Depot #12, GA (30303)</td>
+                  <td>Bengaluru Metro Sortation Depot #12, Karnataka (560001)</td>
                 </tr>
                 <tr>
                   <td>Package Weight</td>
@@ -148,7 +150,7 @@
                 </tr>
                 <tr>
                   <td>Declared Value</td>
-                  <td>$450.00 USD (Insured under Apex Transit Guard)</td>
+                  <td>₹35,000 INR (Insured under Apex Transit Guard)</td>
                 </tr>
               </tbody>
             </table>
@@ -165,7 +167,7 @@
                     <span class="timeline-title">Arrived at Regional Distribution Hub</span>
                     <span class="timeline-time">Today, 06:14 AM</span>
                   </div>
-                  <p class="timeline-location">Regional Sort Facility, Nashville Central Depot, TN</p>
+                  <p class="timeline-location">Regional Sort Facility, Pune Central Depot, Maharashtra</p>
                   <p style="font-size: var(--font-size-xs); color: var(--color-gray); margin-top: 4px;">Automated optical scan: Processed and queued for morning southbound linehaul dispatch.</p>
                 </div>
               </div>
@@ -178,7 +180,7 @@
                     <span class="timeline-title">Departed Origin Facility</span>
                     <span class="timeline-time">Yesterday, 22:45 PM</span>
                   </div>
-                  <p class="timeline-location">Central Midwest Hub, Chicago, IL</p>
+                  <p class="timeline-location">Western Linehaul Hub, Mumbai, Maharashtra</p>
                 </div>
               </div>
 
@@ -190,7 +192,7 @@
                     <span class="timeline-title">Package Scanned at Origin Depot</span>
                     <span class="timeline-time">Yesterday, 17:30 PM</span>
                   </div>
-                  <p class="timeline-location">Depot Station #04, Chicago, IL</p>
+                  <p class="timeline-location">Depot Station #04, Andheri East, Mumbai, Maharashtra</p>
                 </div>
               </div>
 
@@ -240,25 +242,30 @@
             <form id="rateCalculatorForm" novalidate>
               <div class="grid grid-2" style="gap: var(--space-4);">
                 <div class="form-group">
-                  <label for="calcOrigin" class="form-label">Origin Country <span class="required">*</span></label>
+                  <label for="calcOrigin" class="form-label">Origin Hub (India) <span class="required">*</span></label>
                   <select id="calcOrigin" class="form-control" required>
-                    <option value="US">United States (Domestic)</option>
-                    <option value="CA">Canada</option>
-                    <option value="UK">United Kingdom</option>
-                    <option value="DE">Germany</option>
-                    <option value="AU">Australia</option>
+                    <option value="Maharashtra (Mumbai)" selected>Maharashtra (Mumbai Hub)</option>
+                    <option value="Delhi NCR (New Delhi)">Delhi NCR (New Delhi Hub)</option>
+                    <option value="Karnataka (Bengaluru)">Karnataka (Bengaluru Hub)</option>
+                    <option value="Tamil Nadu (Chennai)">Tamil Nadu (Chennai Hub)</option>
+                    <option value="Telangana (Hyderabad)">Telangana (Hyderabad Hub)</option>
+                    <option value="West Bengal (Kolkata)">West Bengal (Kolkata Hub)</option>
+                    <option value="Gujarat (Ahmedabad)">Gujarat (Ahmedabad Hub)</option>
+                    <option value="Kerala (Kochi)">Kerala (Kochi Hub)</option>
                   </select>
                 </div>
 
                 <div class="form-group">
-                  <label for="calcDestination" class="form-label">Destination Country <span class="required">*</span></label>
+                  <label for="calcDestination" class="form-label">Destination Hub (India) <span class="required">*</span></label>
                   <select id="calcDestination" class="form-control" required>
-                    <option value="US">United States (Domestic)</option>
-                    <option value="CA">Canada</option>
-                    <option value="UK">United Kingdom</option>
-                    <option value="DE">Germany</option>
-                    <option value="AU">Australia</option>
-                    <option value="JP">Japan</option>
+                    <option value="Karnataka (Bengaluru)" selected>Karnataka (Bengaluru Hub)</option>
+                    <option value="Maharashtra (Mumbai)">Maharashtra (Mumbai Hub)</option>
+                    <option value="Delhi NCR (New Delhi)">Delhi NCR (New Delhi Hub)</option>
+                    <option value="Tamil Nadu (Chennai)">Tamil Nadu (Chennai Hub)</option>
+                    <option value="Telangana (Hyderabad)">Telangana (Hyderabad Hub)</option>
+                    <option value="West Bengal (Kolkata)">West Bengal (Kolkata Hub)</option>
+                    <option value="Gujarat (Ahmedabad)">Gujarat (Ahmedabad Hub)</option>
+                    <option value="Kerala (Kochi)">Kerala (Kochi Hub)</option>
                   </select>
                 </div>
               </div>
@@ -287,7 +294,7 @@
           <div>
             <div id="calcResultBox" class="calc-result-box">
               <span class="badge badge-primary" style="margin-bottom: var(--space-2);">Estimated Quotation</span>
-              <div id="calcPriceDisplay" class="calc-result-price">$16.50 USD</div>
+              <div id="calcPriceDisplay" class="calc-result-price">₹250.00 INR</div>
               <div id="calcTimeDisplay" style="font-weight: 700; color: var(--color-black); margin-bottom: var(--space-2);">Estimated Transit Time: 2 - 4 Business Days</div>
               <p id="calcBreakdownDisplay" style="font-size: var(--font-size-sm); color: var(--color-gray); margin-bottom: var(--space-4);">
                 Based on 1.0 kg via GROUND service (Domestic).
@@ -362,7 +369,7 @@
             When collecting a package from an Apex Logistics Depot Station or accepting a signature-mandated delivery, recipients must satisfy the following criteria:
           </p>
           <ul style="font-size: var(--font-size-sm); padding-left: var(--space-5); margin-bottom: var(--space-4);">
-            <li><strong>Government-Issued Photo ID:</strong> Valid Passport, Driver’s License, or National Identity Card matching the addressee name.</li>
+            <li><strong>Government-Issued Photo ID:</strong> Valid Aadhaar Card, PAN Card, Voter ID, Passport, or Driver’s License matching the addressee name.</li>
             <li><strong>Digital Waybill Notification:</strong> Presentation of the official SMS or email dispatch code containing the consignment number.</li>
             <li><strong>Third-Party Collection:</strong> If collecting on behalf of another individual, provide written authorization accompanied by a photocopy of the addressee's official ID.</li>
           </ul>
@@ -384,7 +391,7 @@
             A premier provider of enterprise logistics, scheduled freight, and domestic parcel delivery services. Committed to punctuality, security, and supply chain integrity.
           </p>
           <p style="font-size: var(--font-size-xs); color: #888888;">
-            Registered Logistics Carrier #APX-US-892401-B
+            Registered Logistics Carrier #APX-IN-892401-B
           </p>
         </div>
 
@@ -407,6 +414,7 @@
             <li><a href="services.html">Delivery Services</a></li>
             <li><a href="contact.html">Depot Locations</a></li>
             <li><a href="login.html">Customer Portal Login</a></li>
+            <li><a href="admin-login.html" style="color: #ffd700; font-weight: 700;">Admin Login</a></li>
           </ul>
         </div>
 
@@ -415,11 +423,11 @@
           <ul class="footer-contact-list">
             <li>
               <strong>Central Office</strong>
-              <span>450 Logistics Boulevard, Suite 1200<br>Chicago, IL 60607, United States</span>
+              <span>450 Logistics Park, Bandra-Kurla Complex (BKC)<br>Mumbai, Maharashtra 400051, India</span>
             </li>
             <li>
               <strong>Dispatch Helpline</strong>
-              <span>+1 (800) 555-2739 (Toll-Free)</span>
+              <span>1800 266 2739 (Toll-Free)</span>
             </li>
             <li>
               <strong>Customer Support</strong>

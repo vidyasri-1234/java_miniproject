@@ -316,25 +316,25 @@ document.addEventListener('DOMContentLoaded', function () {
         return;
       }
 
-      // Transparent rate computation formula
-      let baseRate = 12.00;
-      let ratePerKg = 4.50;
-      let estDays = '3 - 5 Business Days';
+      // Transparent rate computation formula (in INR ₹)
+      let baseRate = 80.00;
+      let ratePerKg = 40.00;
+      let estDays = '1 - 2 Business Days';
 
       if (originCountry !== destCountry) {
-        baseRate = 35.00;
-        ratePerKg = 9.50;
-        estDays = '5 - 8 Business Days';
+        baseRate = 180.00;
+        ratePerKg = 75.00;
+        estDays = '2 - 4 Business Days';
       }
 
       if (serviceType === 'express') {
-        baseRate *= 1.8;
-        ratePerKg *= 1.6;
-        estDays = originCountry === destCountry ? '1 - 2 Business Days' : '2 - 4 Business Days';
+        baseRate *= 1.5;
+        ratePerKg *= 1.4;
+        estDays = originCountry === destCountry ? 'Next Day Delivery' : '1 - 2 Business Days';
       } else if (serviceType === 'same-day') {
         baseRate *= 2.5;
-        ratePerKg *= 2.2;
-        estDays = 'Same Day (Within 8 Hours)';
+        ratePerKg *= 2.0;
+        estDays = 'Same Day Delivery (Within 8 Hours)';
       }
 
       const totalCost = baseRate + (weight * ratePerKg);
@@ -344,7 +344,7 @@ document.addEventListener('DOMContentLoaded', function () {
       const breakdownDisplay = document.getElementById('calcBreakdownDisplay');
 
       if (priceDisplay) {
-        priceDisplay.textContent = '$' + totalCost.toFixed(2) + ' USD';
+        priceDisplay.textContent = '₹' + totalCost.toFixed(2) + ' INR';
       }
       if (timeDisplay) {
         timeDisplay.textContent = 'Estimated Transit Time: ' + estDays;

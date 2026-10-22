@@ -31,7 +31,7 @@ app.get('/api/track', async (req, res) => {
   const trackingId = (req.query.id || '').trim();
 
   if (!trackingId) {
-    return res.status(400).json({ error: 'Keng Tracking ID uginn.' });
+    return res.status(400).json({ error: 'No tracking ID provided.' });
   }
 
   try {
@@ -145,7 +145,7 @@ app.post('/api/admin/parcels', async (req, res) => {
            current_location = EXCLUDED.current_location,
            receiver_name = EXCLUDED.receiver_name,
            destination = EXCLUDED.destination`,
-      [trackingId.trim().toUpperCase(), 'Apex Express Depot', customerName.trim(), location.trim(), destination.trim(), 2.5, status || 'Booked', location.trim()]
+      [trackingId.trim().toUpperCase(), 'Apex Express Depot India', customerName.trim(), location.trim(), destination.trim(), 2.5, status || 'Booked', location.trim()]
     );
 
     // Insert history

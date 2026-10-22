@@ -41,16 +41,16 @@
         <input type="hidden" id="editId">
 
         <label for="trackingId">Tracking ID</label>
-        <input id="trackingId" required maxlength="20">
+        <input id="trackingId" required maxlength="20" placeholder="e.g. APX-982341">
 
         <label for="customerName">Customer Name</label>
-        <input id="customerName" required>
+        <input id="customerName" required placeholder="e.g. Vikram Malhotra">
 
         <label for="destination">Destination</label>
-        <input id="destination" required>
+        <input id="destination" required placeholder="e.g. Bengaluru, Karnataka">
 
         <label for="location">Current Location</label>
-        <input id="location" required>
+        <input id="location" required placeholder="e.g. Mumbai Logistics Hub, Maharashtra">
 
         <label for="status">Parcel Status</label>
         <select id="status">
@@ -69,7 +69,7 @@
 
     <section class="panel">
       <h2>Search Parcels</h2>
-      <input id="searchInput" placeholder="Search tracking ID, customer or status">
+      <input id="searchInput" placeholder="Search tracking ID, customer, Indian hub or status">
       <button type="button" id="searchButton">Search</button>
       <button type="button" id="showAllButton">Show All</button>
     </section>
